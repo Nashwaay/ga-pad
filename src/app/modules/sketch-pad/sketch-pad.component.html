@@ -1,0 +1,198 @@
+<div id="sidebar-nav" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <br>
+  <div class="left-panel-inner">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs left-panel-nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink><i class="fa fa-file"></i></a>
+        <ng-template ngbNavContent>
+          <div class="px-3 pt-4">
+            <h5>New Design</h5>
+            <div class="row">
+              <div class="col-6">
+                Width: <input class="form-control form-control-sm" [(ngModel)]="CANVAS_WIDTH" type="number"
+                  placeholder="Enter width in px" />
+                Height: <input class="form-control form-control-sm" [(ngModel)]="CANVAS_HEIGHT" type="number"
+                  placeholder="Enter height in px" /></div>
+              <div class="col-6">
+                <br>
+                <button class="w-100 ml-1 btn btn-secondary" (click)="onNewDesignClick()">New Custom</button>
+                <br>
+                <button class="w-100 ml-1 mt-1 btn btn-secondary" (click)="onNewDesignClick('A4')">A4</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+
+      <span _ngcontent-iuw-c101="" class="vl"></span>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink><i class="fa fa-text-width"></i></a>
+        <ng-template ngbNavContent>
+          <div class="px-3 pt-4">
+            <h5>Choose Text & Style</h5>
+            <div class="row">
+              <div class="form-check col-6" *ngFor="let language of languageSupport; let i = index">
+                <input class="form-group" type="radio" name="flexRadioDefault" [id]="language+i"
+                  (change)="onLanguageClick(language)" [checked]="selectedLanguage===language">
+                <label class="form-group" [for]="language+i">
+                  {{language | titlecase}}
+                </label>
+              </div>
+              <a class="btn btn-link btn-sm" style="font-size: 12px;" (click)="showKeyboard = true"
+                target="_blank">View Urdu Keyboard Layout</a>
+              <div class="col-12">
+                <input class="form-group w-100 mb-1" [(ngModel)]="inputText" id="text"
+                  placeholder="Enter english text.." />
+              </div>
+              <div class="col-6" *ngFor="let text of textModes" [ngClass]="{'active': activeMode===text.type}"
+                (click)="setActiveMode(text.type)">
+                <button class="btn btn-outline-dark w-100 ml-1 mb-1">{{text.text}}
+                </button>
+              </div>
+              <select [(ngModel)]="activeFont">
+                <option *ngFor="let font of fonts" [value]="font">{{font}}</option>
+              </select>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <span _ngcontent-iuw-c101="" class="vl"></span>
+
+      <li [ngbNavItem]="3">
+        <a ngbNavLink><i class="fa fa-image"></i></a>
+        <ng-template ngbNavContent>
+          <div class="px-3 pt-4">
+            <h5>Choose Background Style</h5>
+            <div class="row color-blue-gray">
+              <ng-container *ngFor="let background of backgrounds">
+                <div class="col-6">
+                  <button class="btn btn-outline-dark w-100 ml-1 mb-1"
+                    [ngClass]="{'active': activeMode===background.type}"
+                    (click)="setActiveMode(background.type, $event)">
+                    {{background.text}}
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <hr>
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="4">
+        <a ngbNavLink><i class="fa fa-paint-brush"></i></a>
+        <ng-template ngbNavContent>
+          <div class="px-3 pt-4">
+            <h5>Choose Brush Style</h5>
+            <div class="row">
+              <div class="col-6" *ngFor="let mode of modes">
+                <button class="btn btn-outline-dark w-100 ml-1 mb-1" [ngClass]="{'active': activeMode===mode.type}"
+                  (click)="setActiveMode(mode.type)">{{mode.text}}</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+
+      <span _ngcontent-iuw-c101="" class="vl"></span>
+
+      <li [ngbNavItem]="5">
+        <a ngbNavLink><i class="fa fa-filter"></i></a>
+        <ng-template ngbNavContent>
+          <div class="px-3 pt-4">
+            <!-- <h2>Generate landscape image</h2>
+              <div class="row color-blue-gray">
+                <div class="col-3 ml-2 btn btn-outline-primary" (click)="setActiveMode('GAN')">
+                  Generate
+                </div>
+              </div> -->
+            <h5>Choose Filter</h5>
+            <div class="row color-blue-gray">
+              <div class="col-6" *ngFor="let filter of filters">
+                <button class="btn btn-outline-dark w-100 ml-1 mb-1" [ngClass]="{'active': activeMode===filter}"
+                  (click)="setActiveMode(filter)">
+                  {{filter | titlecase}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="6">
+        <a ngbNavLink><i class="fas fa-spinner fa-spin"></i></a>
+        <ng-template ngbNavContent>
+          <div class="px-3 pt-4">
+            <!-- <h2>Generate landscape image</h2>
+              <div class="row color-blue-gray">
+                <div class="col-3 ml-2 btn btn-outline-primary" (click)="setActiveMode('GAN')">
+                  Generate
+                </div>
+              </div> -->
+            <h5>Choose Animation</h5>
+            <div class="row color-blue-gray">
+              <div class="col-6" *ngFor="let type of animations">
+                <button class="btn btn-outline-dark w-100 ml-1 mb-1" [ngClass]="{'active': activeMode===type.type}"
+                  (click)="setActiveMode(type.type)">
+                  {{type.text | titlecase}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+  <div class="px-3 py-2">
+    <div class="row">
+      <div class="col-6" id="options">
+        <label>Primary Color: </label><input type="color" [(ngModel)]="strokeColor" />
+        <label>Secondary Color: </label><input type="color" [(ngModel)]="secondaryColor" />
+      </div>
+      <div class="col-6">
+        <label>Size: {{sizePicker}}px</label>
+        <input type="range" [(ngModel)]="sizePicker" />
+      </div>
+    </div>
+    <div class="row">
+      <h5>Download as </h5>
+      <div *ngFor="let mode of exportModes" class="col-6">
+        <button class="btn btn-secondary w-100 ml-1" (click)="saveImage(mode)">{{mode
+          | uppercase}}</button>
+      </div>
+    </div>
+    <div class="row">
+      <h5>Share </h5>
+      <div class="col-6">
+        <button class="btn btn-link w-100 ml-1 " style="color: black;" (click)="shareImage()"><i
+            class="fa fa-facebook-f"></i></button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-link w-100 ml-1" style="color: black;" (click)="shareImage('twitter')"><i
+            class="fa fa-twitter"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="openbtn btn-light" (click)="openNav()">&#9776;</button>
+  <a class="navbar-brand" style="float: right;" href="#">Generative Art Pad</a>
+  <!-- <p>&#1557;&#1557;</p> -->
+</nav>
+<div id="main">
+  <div class="row">
+    <div class="row" *ngIf="showKeyboard">
+      <div class="col-6"><img src="./../../../assets/images/keyboard_a.PNG" /></div>
+      <a class="btn btn-link btn-sm"  href="javascript:void(0)" class="closebtn" (click)="showKeyboard = false">&times;</a>
+      <div class="col-6"><img src="./../../../assets/images/keyboard_c.PNG" /></div>
+    </div>
+    <div class="col-3"></div>
+    <div class="col-9 float-right mt-4">
+      <div class="sketch-container">
+        <div id="sketch-holder"></div>
+      </div>
+    </div>
+  </div>
+</div>

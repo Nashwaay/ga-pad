@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GAPad</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="./styles.scss" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- include this in your HTML file -->
+  <script src="https://cdn.jsdelivr.net/npm/@runwayml/hosted-models@latest/dist/hosted-models.js"></script>
+  <script src="./assets/urdutextbox.js"></script>
+
+  <script>
+
+    window.onload = myOnload;
+
+    function myOnload(evt) {
+      MakeTextBoxUrduEnabled(txtBox);//enable Urdu in html text box
+    }
+
+  </script>
+</head>
+
+<body>
+  <div class="col-12 bg-light pt-1">
+    <input class="form-group w-80 mr-2" id="txtBox" name="txtBox" type="text" dir="rtl" placeholder="اردو..."
+     style="float: right; height: 50px; font-size: xx-large;">
+  </div>
+  <app-root></app-root>
+</body>
+
+</html>
